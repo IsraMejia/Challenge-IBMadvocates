@@ -10,26 +10,24 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('SplashScreen'),
-      ),
+      backgroundColor: Colors.lightBlue[900],
+      
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        
         children: <Widget>[
           
-          Divider(color: Colors.white),
+          Divider(color: Colors.lightBlue[900]),
           Container(
             height: 200,
             width: 200,
             child: FlareActor(
               'assets/food.flr',
-              alignment: Alignment.center,
+              alignment: Alignment.center ,
               fit: BoxFit.contain,
               animation: 'Untitled',
             ),
           ),
-          Text('IBM Chatbot'),          
+          Text('IBM Chatbot', style: TextStyle(fontSize: 25, color: Colors.blueGrey[50]) ),          
         ],
       ),
 
@@ -40,13 +38,13 @@ class _SplashScreenState extends State<SplashScreen> {
   _botonStart(BuildContext context){
     return RaisedButton.icon(
       onPressed: () => Navigator.pushReplacementNamed(context, 'chatScreen'),
-      label: Text('Start'),
+      label: Text('Start', style: TextStyle(fontSize: 20)  ),
       icon: Icon(Icons.chat),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      color: Colors.deepPurple[500] ,
-      textColor: Colors.blueGrey[50],
+      color: Colors.blueGrey[50] ,
+      textColor: Colors.blue[900],
     );
 
   }

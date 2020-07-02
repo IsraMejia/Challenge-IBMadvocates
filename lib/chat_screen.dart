@@ -11,6 +11,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Watson Chef 👨🏽‍🍳'),
+        backgroundColor: Colors.blue[900],
       ),
     );
   }
