@@ -13,6 +13,7 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Text('Watson Chef 👨🏽‍🍳'),
         backgroundColor: Colors.blue[900],
       ),
+      
     );
   }
 }
