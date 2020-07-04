@@ -58,6 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     );
   }//build
+  
   // _botonStart(BuildContext context){
   //   return RaisedButton.icon(
   //     onPressed: () => Navigator.pushReplacementNamed(context, 'chatScreen'),
