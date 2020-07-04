@@ -8,7 +8,7 @@ class ChatScreen extends StatefulWidget {
 }//ChatScreen
 
 class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
-  final List<WatsonMensaje> _mensajes = [];
+  final List<Widget> _mensajes = [];
   final _textController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   var _ocultaTeclado = new FocusNode();
@@ -103,7 +103,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                     if(_textController.text.length == 0) {
                       print('vacio');
                     } else{
-                      _enviar(_textController.text);
+                      _enviar(_textController.text , origen);
                     }
                   } 
                   //Arreglar para que no mande mensajes vacios
@@ -115,25 +115,36 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     );
   } //_crearTeclado
 
-  void _enviar(String text) {
+  void _enviar(String text , bool origen) {
     _textController.clear();
     print(text.length);
-      WatsonMensaje mensaje = WatsonMensaje(
-        text: text,
-        animationController: AnimationController(
-          duration: const Duration(milliseconds: 500),
-          vsync: this,
-        ),
-      );
+    
+    if(origen){
+        WatsonMensaje mensaje = WatsonMensaje(
+          text: text,
+          animationController: AnimationController(
+            duration: const Duration(milliseconds: 500),
+            vsync: this,
+          ),
+        );
+        origen =true;
+      }else{
+        UsuarioMensaje mensaje = UsuarioMensaje(
+          text: text,
+          animationController: AnimationController(
+            duration: const Duration(milliseconds: 500),
+            vsync: this,
+          ),
+        );
+        origen = false;
+      }
+
       setState(() {
         _mensajes.insert(0, mensaje);
       });
       _focusNode.requestFocus();
       mensaje.animationController.forward();
       
-
-    
-
   } //_enviar
 
   @override
