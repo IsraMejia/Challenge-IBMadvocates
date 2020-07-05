@@ -89,7 +89,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                 decoration:
                   InputDecoration.collapsed(
                     hintText: 'Hablemos de cocina :)' ,
-                    hintStyle: TextStyle(fontSize: 19.0, color: Colors.blueAccent[50]) ,
+                    hintStyle: TextStyle(fontSize: 19.0, color: Colors.blue[100] ) ,
                     fillColor:Colors.white ),
                 focusNode: _focusNode,
                 
@@ -103,7 +103,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                     if(_textController.text.length == 0) {
                       print('vacio');
                     } else{
-                      _enviar(_textController.text , origen);
+                      _enviar(_textController.text  );
                     }
                   } 
                   //Arreglar para que no mande mensajes vacios
@@ -115,7 +115,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     );
   } //_crearTeclado
 
-  void _enviar(String text , bool origen) {
+  void _enviar(String text ) {
     _textController.clear();
     print(text.length);
     
@@ -127,7 +127,13 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             vsync: this,
           ),
         );
-        origen =true;
+        origen =false;
+         setState(() {
+        _mensajes.insert(0, mensaje);
+      });
+      _focusNode.requestFocus();
+      mensaje.animationController.forward();
+
       }else{
         UsuarioMensaje mensaje = UsuarioMensaje(
           text: text,
@@ -136,14 +142,16 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             vsync: this,
           ),
         );
-        origen = false;
-      }
-
-      setState(() {
+        origen = true;
+         setState(() {
         _mensajes.insert(0, mensaje);
       });
       _focusNode.requestFocus();
       mensaje.animationController.forward();
+
+      }
+
+     
       
   } //_enviar
 
@@ -233,36 +241,33 @@ class UsuarioMensaje extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 10.0),
           child: Row(
             
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Container(
-                
-                margin: const EdgeInsets.only(right: 16.0),
-               child: CircleAvatar(child: Text("Tú") , radius: 25.0),
-
               
-              ),
               Column( 
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text("Tú", style: TextStyle(
-                        fontSize: 15.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500
-                        
-                    )),
+                  
                   Container(
-                    width: anchoPantalla * 0.65 , 
+                    padding: EdgeInsets.only(right: 12.2),
+                    width: anchoPantalla * 0.8 , 
                     //Para que no se desborden los mensajes y se acomoda solito en renglones
                     margin: EdgeInsets.only(top: 5.0),
                     child: Text(
-                      text , style: TextStyle(
+                      text , 
+                      style: TextStyle(
                         fontSize: 19.0,
                         color: Colors.blueGrey[50]
-                    ),),
+                      ),
+                      textAlign: TextAlign.end,
+                    ),
                   ),
                 ],
               ),
+              Container(    
+                // margin: const EdgeInsets.only(right: 0.0),
+               child: CircleAvatar(child: Text("Tú") , radius: 25.0),
+              )
             ],
           )),
     );
