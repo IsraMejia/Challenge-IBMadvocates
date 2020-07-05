@@ -29,6 +29,7 @@ dev_dependencies:
     sdk: flutter
   flare_flutter: ^1.5.0
   animated_text_kit: ^2.2.0
+  url_launcher : ^5.4.11
 
 
 
