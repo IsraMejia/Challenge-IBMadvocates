@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-String _watson ="Watson";
-String tipoMensaje = "watson" ; // true = watson,  false usuario
-
+import 'package:watson_chef/mensajes.dart' as mensajes;
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -118,67 +114,25 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 
   void _enviar(String text ) {
     _textController.clear();
-    print(text.length);
     if(text.length == 0) {
       return null;
     }
-    
-    switch (tipoMensaje) {
 
-      case "watson":{
-        WatsonMensaje mensaje = WatsonMensaje(
-          text: text,
-          animationController: AnimationController(
-            duration: const Duration(milliseconds: 500),
-            vsync: this,
-          ),
-        );
-        tipoMensaje ="usuario";
-         setState(() {
-        _mensajes.insert(0, mensaje);
-         });
-        _focusNode.requestFocus();
-        mensaje.animationController.forward();
-      }  
-      break;
+    // UsuarioMensaje mensaje = UsuarioMensaje(
+    //    text: text,
+    //    animationController: AnimationController(
+    //      duration: const Duration(milliseconds: 500),
+    //       vsync: this,
+    //     ),
+    // );        
+    // mensajes.tipoMensaje = "watsonReceta";
 
-
-      case "watsonReceta":{
-        WatsonMensajeReceta mensaje = WatsonMensajeReceta(
-          text: text,
-          animationController: AnimationController(
-            duration: const Duration(milliseconds: 500),
-            vsync: this,
-          ),
-        );
-        tipoMensaje ="usuario";
-         setState(() {
-        _mensajes.insert(0, mensaje);
-         });
-        _focusNode.requestFocus();
-        mensaje.animationController.forward();
-      }  
-      break;
-
-      case "usuario":{
-        UsuarioMensaje mensaje = UsuarioMensaje(
-          text: text,
-          animationController: AnimationController(
-            duration: const Duration(milliseconds: 500),
-            vsync: this,
-          ),
-        );
-        tipoMensaje = "watsonReceta";
-         setState(() {
-        _mensajes.insert(0, mensaje);
-        });
-        _focusNode.requestFocus();
-        mensaje.animationController.forward();
-      }  
-      break;
-
-      default:
-    }
+    setState(() {
+       _mensajes.insert(0, mensaje);
+    });
+    _focusNode.requestFocus();
+    mensaje.animationController.forward(); 
+    }//_enviar()
 
      
       
@@ -192,230 +146,3 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   }//dispose
 
 } //_ChatScreenState
-
-
-class WatsonMensaje extends StatelessWidget {
-  WatsonMensaje({this.text, this.animationController});
-  final String text;
-  final AnimationController animationController;
-
-  @override
-  Widget build(BuildContext context) {
-    double anchoPantalla = MediaQuery.of(context).size.width;
-    return SizeTransition(
-      sizeFactor:
-          CurvedAnimation(parent: animationController, curve: Curves.easeOutExpo ),
-      axisAlignment: 0.0,
-      child: Container(
-          margin: EdgeInsets.symmetric(vertical: 10.0),
-          child: Row(
-            
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                
-                margin: const EdgeInsets.only(right: 16.0),
-                // child: CircleAvatar(child: Text(_watson[0])),
-
-                child: CircleAvatar( 
-                  backgroundImage:  NetworkImage("https://cdn.pixabay.com/photo/2019/07/25/20/13/robot-4363354_1280.png"),
-                  radius: 25.0,
-                  
-                )
-
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(_watson, style: TextStyle(
-                        fontSize: 15.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500
-                        
-                    )),
-                  Container(
-                    width: anchoPantalla * 0.65 , 
-                    //Para que no se desborden los mensajes y se acomoda solito en renglones
-                    margin: EdgeInsets.only(top: 5.0),
-                    child: Text(
-                      text , style: TextStyle(
-                        fontSize: 19.0,
-                        color: Colors.blueGrey[50]
-                    ),),
-                  ),
-                ],
-              ),
-            ],
-          )),
-    );
-  }// build
-} //Class WatsonMensaje
-
-//
-
-class WatsonMensajeReceta extends StatelessWidget {
-  WatsonMensajeReceta({this.text, this.animationController});
-  final String text;
-  final AnimationController animationController;
-  String pathImage = "https://t1.rg.ltmcdn.com/es/images/2/3/0/img_pollo_con_mole_9032_600.jpg";
-  String urlVideo = "https://www.youtube.com/watch?v=NXGWW8W3mss";
-  
-  Future<void> _abrirVideo;
-
-  Future<void> _abrirVideoNavegador(String urlVideo) async{
-    if(await canLaunch(urlVideo)){
-      await launch(urlVideo);
-    }else{
-      throw "No se pudo abrir :c";
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    double anchoPantalla = MediaQuery.of(context).size.width;
-    return SizeTransition(
-      sizeFactor:
-          CurvedAnimation(parent: animationController, curve: Curves.easeOutExpo ),
-      axisAlignment: 0.0,
-      child: Container(
-          margin: EdgeInsets.symmetric(vertical: 10.0),
-          child: Row(
-            
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container( //Avatar Watson
-                margin: const EdgeInsets.only(right: 16.0),
-                child: CircleAvatar( 
-                  backgroundImage:  NetworkImage("https://cdn.pixabay.com/photo/2019/07/25/20/13/robot-4363354_1280.png"),
-                  radius: 25.0,
-                )
-              ),
-              
-              
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                
-                children: <Widget>[
-                  Text("Watson:", style: TextStyle(
-                        fontSize: 15.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500
-                      )
-                  ),
-                  Container(
-                    width: anchoPantalla * 0.65 , 
-                    //Para que no se desborden los mensajes y se acomoda solito en renglones
-                    margin: EdgeInsets.only(top: 5.0),
-                    child: Column(
-                      
-                      children: <Widget>[
-                        Text(text , 
-                        style: TextStyle(
-                        fontSize: 19.0,
-                        color: Colors.blueGrey[50]
-                        ),
-                        ),
-                        
-                        Stack(
-                          children: <Widget>[
-                            Container(
-                              width: anchoPantalla * 0.60,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  child: Image(
-                                  width: anchoPantalla * 0.60,
-                                  fit: BoxFit.cover,
-                                  image:  NetworkImage(pathImage)
-                                  ),
-                                ),
-                            ),
-                            
-                            Container(
-                              margin: EdgeInsets.only(top: anchoPantalla * 0.35 , left: anchoPantalla * 0.15),
-                              child: RaisedButton(
-
-                                onPressed: (){
-                                  _abrirVideoNavegador(urlVideo);
-                                } ,
-
-                                elevation: 9.0,
-                                color: Color.fromRGBO(78, 204, 223, .87) ,
-                                shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(22.0)
-                                ),
-
-                                child: Text("Ver Tutorial",
-                                  style: TextStyle( fontSize: 18.0, color: Colors.blueGrey[900]),
-                                  ),      
-                              ),
-                            ),
-                                 
-                          ],
-                        ), 
-                       ],
-                    ),
-                  ),
-                
-                ],
-
-
-              ),
-            ],
-          )),
-    );
-  }// build
-} //Class WatsonMensajeReceta
-
-//
-
-
-class UsuarioMensaje extends StatelessWidget {
-  UsuarioMensaje({this.text, this.animationController});
-  final String text;
-  final AnimationController animationController;
-
-  @override
-  Widget build(BuildContext context) {
-    double anchoPantalla = MediaQuery.of(context).size.width;
-    return SizeTransition(
-      sizeFactor:
-          CurvedAnimation(parent: animationController, curve: Curves.easeOutExpo ),
-      axisAlignment: 0.0,
-      child: Container(
-          margin: EdgeInsets.symmetric(vertical: 10.0),
-          child: Row(
-            
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              
-              Column( 
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  
-                  Container(
-                    padding: EdgeInsets.symmetric( horizontal: 21.0),
-                    width: anchoPantalla * 0.8 , 
-                    //Para que no se desborden los mensajes y se acomoda solito en renglones
-                    margin: EdgeInsets.only(top: 5.0),
-                    child: Text(
-                      text , 
-                      style: TextStyle(
-                        fontSize: 19.0,
-                        color: Colors.blueGrey[50]
-                      ),
-                      textAlign: TextAlign.end,
-                    ),
-                  ),
-                ],
-              ),
-              Container(    
-                // margin: const EdgeInsets.only(right: 0.0),
-               child: CircleAvatar(child: Text("Tú") , radius: 25.0),
-              )
-            ],
-          )),
-    );
-  }// build
-} //Class UsuarioMensaje
-
-
