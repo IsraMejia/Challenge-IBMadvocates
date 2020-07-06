@@ -161,7 +161,7 @@ class Mensajes extends StatelessWidget {
         return mensajesWatson(context , tipoMensaje);
       break;
 
-      default: return Divider(height: 1.0);
+      default: return Divider(height: 2.0);
     }
     
   }
