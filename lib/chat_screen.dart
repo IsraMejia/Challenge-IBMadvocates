@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 String _watson ="Watson";
-String origen = "watson" ; // true = watson,  false usuario
+String tipoMensaje = "watson" ; // true = watson,  false usuario
 
 
 class ChatScreen extends StatefulWidget {
@@ -123,7 +123,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
       return null;
     }
     
-    switch (origen) {
+    switch (tipoMensaje) {
 
       case "watson":{
         WatsonMensaje mensaje = WatsonMensaje(
@@ -133,7 +133,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             vsync: this,
           ),
         );
-        origen ="usuario";
+        tipoMensaje ="usuario";
          setState(() {
         _mensajes.insert(0, mensaje);
          });
@@ -151,7 +151,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             vsync: this,
           ),
         );
-        origen ="usuario";
+        tipoMensaje ="usuario";
          setState(() {
         _mensajes.insert(0, mensaje);
          });
@@ -168,7 +168,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             vsync: this,
           ),
         );
-        origen = "watsonReceta";
+        tipoMensaje = "watsonReceta";
          setState(() {
         _mensajes.insert(0, mensaje);
         });

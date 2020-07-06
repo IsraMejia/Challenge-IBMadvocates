@@ -11,13 +11,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlue[900],
+      backgroundColor: Colors.blue[900],
       
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           
-          Divider(color: Colors.lightBlue[900]),
+          Divider(color: Colors.blue[900]),
           Container(
             height: 200,
             width: 200,
@@ -49,28 +49,12 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           )
 
-
-
         ],
       ),
 
-     // floatingActionButton: _botonStart(context),
 
     );
   }//build
   
-  // _botonStart(BuildContext context){
-  //   return RaisedButton.icon(
-  //     onPressed: () => Navigator.pushReplacementNamed(context, 'chatScreen'),
-  //     label: Text('Start', style: TextStyle(fontSize: 20)  ),
-  //     icon: Icon(Icons.chat),
-  //     shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.circular(20.0),
-  //     ),
-  //     color: Colors.blueGrey[50] ,
-  //     textColor: Colors.blue[900],
-  //   );
-
-  // }//_botonStart
 
 }//_SplashScreenState
