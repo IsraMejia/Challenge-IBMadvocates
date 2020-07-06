@@ -8,6 +8,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  double alto = 600;
+  double ancho = 600;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,22 +20,22 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           
-          Divider(color: Colors.blue[900]),
-          Container(
-            height: 200,
-            width: 200,
-            child: FlareActor(
-              'assets/food.flr',
-              alignment: Alignment.center ,
-              fit: BoxFit.contain,
-              animation: 'Untitled',
+          Expanded(
+              child: Container(
+              height:alto,
+              width: ancho,
+              child:FlareActor(
+                  'assets/WATSON2.flr',
+                  alignment: Alignment.center ,
+                  fit: BoxFit.contain, 
+                  animation: 'chef',
+                ), 
             ),
           ),
-          // Text('IBM Chatbot', style: TextStyle(fontSize: 25, color: Colors.blueGrey[50]) ),   
-          Divider(height: 30.0),
+          
           Center(
             child: SizedBox(
-              width: 300.0,
+              width: 500.0,
               child: TypewriterAnimatedTextKit(
                 speed: Duration(milliseconds: 200),
                 totalRepeatCount: 1,
@@ -47,7 +50,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 alignment: AlignmentDirectional.topStart // or Alignment.topLeft
               ),
             ),
-          )
+          ),
+
+          Divider(height: 100.0)
 
         ],
       ),
