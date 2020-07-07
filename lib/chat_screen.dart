@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:watson_chef/mensajes.dart' as mensajes;
+import 'package:watson_chef/mensajes.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -7,7 +7,7 @@ class ChatScreen extends StatefulWidget {
 }//ChatScreen
 
 class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
-  final List<Widget> _mensajes = [];
+  final List<Mensajes> _mensajes = [];
   final _textController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   var _ocultaTeclado = new FocusNode();
@@ -114,33 +114,44 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 
   void _enviar(String text ) {
     _textController.clear();
+    print(text);
     if(text.length == 0) {
       return null;
     }
 
-    // UsuarioMensaje mensaje = UsuarioMensaje(
-    //    text: text,
-    //    animationController: AnimationController(
-    //      duration: const Duration(milliseconds: 500),
-    //       vsync: this,
-    //     ),
-    // );        
-    // mensajes.tipoMensaje = "watsonReceta";
+    Mensajes mensaje = new Mensajes(
+      text: text,
+      tipoMensaje: "watsonReceta",
+      animationController: AnimationController(
+        duration: const Duration(milliseconds: 500),
+        vsync: this,
+      ),
+    );
 
+    //  mensaje2 = new Mensajes.receta{
+    //   text: text;
+    //   tipoMensaje: "watson";
+    //   pathImage = "https://t1.rg.ltmcdn.com/es/images/2/3/0/img_pollo_con_mole_9032_600.jpg";
+    //   urlVideo = "https://www.youtube.com/watch?v=NXGWW8W3mss";
+    //   animationController: AnimationController(
+    //     duration: const Duration(milliseconds: 500),
+    //     vsync: this,
+    //   ),
+    //  };
+
+
+    print(mensaje.tipoMensaje);
     setState(() {
        _mensajes.insert(0, mensaje);
     });
+
     _focusNode.requestFocus();
     mensaje.animationController.forward(); 
     }//_enviar()
 
-     
-      
-  } //_enviar
-
   @override
   void dispose() { //Para Optimizar la memoria
-    for (WatsonMensaje mensaje in _mensajes)
+    for (Mensajes mensaje in _mensajes)
       mensaje.animationController.dispose();
     super.dispose();
   }//dispose

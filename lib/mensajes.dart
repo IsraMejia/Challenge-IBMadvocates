@@ -8,26 +8,38 @@ class Mensajes extends StatelessWidget {
   Mensajes({
     this.tipoMensaje,
     this.text,
-    this.pathImage,
-    this.urlVideo,
-    this.context,
-  });
-  BuildContext context;
+    // this.pathImage,
+    // this.urlVideo,
+    this.animationController,
+  });/*
+  CREA VARIOS CONSTRUCTORES Y YA ES MAS FACIL
+  */ 
+
+  // Mensajes.receta({
+  //   this.tipoMensaje,
+  //   this.text,
+  //   this.pathImage,
+  //   this.urlVideo,
+  //   this.animationController,
+  // });
+  
   String tipoMensaje = "watson" ;
   String text;
   String pathImage = "https://t1.rg.ltmcdn.com/es/images/2/3/0/img_pollo_con_mole_9032_600.jpg";
   String urlVideo = "https://www.youtube.com/watch?v=NXGWW8W3mss";
-  double anchoPantalla = MediaQuery.of(context).size.width;
+  final AnimationController animationController;
+  
+
 
   //Listas de Mensajes
-  Widget  mensajesWatson( BuildContext context , String tipoMensaje){
-    
+
+  Widget  mensajesWatson( BuildContext context , String tipoMensaje , double anchoPantalla ){  
       return Container(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container( //Avatar Watson
-                  margin: const EdgeInsets.only(right: 16.0),
+                  margin: const EdgeInsets.only(right: 13.0),
                   child: CircleAvatar( 
                   backgroundImage:  NetworkImage("https://cdn.pixabay.com/photo/2019/07/25/20/13/robot-4363354_1280.png"),
                   radius: 25.0,
@@ -50,6 +62,7 @@ class Mensajes extends StatelessWidget {
                       //Para que no se desborden los Mensajes y se acomoda solito en renglones
                       margin: EdgeInsets.only(top: 5.0),
                       child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(text , 
                         style: TextStyle(
@@ -57,7 +70,7 @@ class Mensajes extends StatelessWidget {
                         color: Colors.blueGrey[50]
                         ),
                       ), 
-                      mostrarPlatillo(tipoMensaje) 
+                      mostrarPlatillo(tipoMensaje , anchoPantalla) 
                       ],
                       ),
                     ), 
@@ -66,13 +79,13 @@ class Mensajes extends StatelessWidget {
                 ],
             ),
           );
-  }
+  }//mensajesWatson
 
 
 
 
-  //metodos necesarios
-  AnimationController animationController;
+  //metodos necesarios  mensajesWatson
+  // AnimationController animationController;
   Future<void> _abrirVideo;
 
   Future<void> _abrirVideoNavegador(String urlVideo) async{
@@ -83,7 +96,8 @@ class Mensajes extends StatelessWidget {
     }
   }
 
-  Widget mostrarPlatillo(String tipoMensaje){
+  Widget mostrarPlatillo(String tipoMensaje , double anchoPantalla){
+    // tipoMensaje = "usuario";
     if (tipoMensaje == "watsonReceta"){
       return Stack(
         children: <Widget>[
@@ -112,18 +126,54 @@ class Mensajes extends StatelessWidget {
               ),
               child: Text("Ver Tutorial",
                 style: TextStyle( fontSize: 18.0, color: Colors.blueGrey[900]),
-                ),      
+              ),      
           ),
         ),
         ],
       );    
     }
     
+    
     return Divider(); 
     //Si no se debe mostrar la receta solo retorna un widget Divider()
   }
 
   
+
+
+
+  Widget  mensajeUsuario( BuildContext context , String tipoMensaje , double anchoPantalla ){
+    tipoMensaje = (tipoMensaje == "watsonReceta") ? "watson" : "watsonReceta";
+
+    return  Row(
+           crossAxisAlignment: CrossAxisAlignment.end,
+           children: [
+             Column( 
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric( horizontal: 21.0),
+                    width: anchoPantalla * 0.8 , 
+                    //Para que no se desborden los Mensajes y se acomoda solito en renglones
+                    margin: EdgeInsets.only(top: 5.0),
+                    child: Text(
+                      text , 
+                      style: TextStyle(
+                        fontSize: 19.0,
+                        color: Colors.blueGrey[50]
+                      ),
+                      textAlign: TextAlign.end,
+                    ),
+                  ),
+                ],
+              ),
+              Container(    
+                // margin: const EdgeInsets.only(right: 0.0),
+               child: CircleAvatar(child: Text("Tú") , radius: 25.0),
+              )
+            ],
+          ); 
+  }
 
 
 
@@ -135,9 +185,10 @@ class Mensajes extends StatelessWidget {
       sizeFactor:
           CurvedAnimation(parent: animationController, curve: Curves.easeOutExpo ),
       axisAlignment: 0.0,
+      
       child: Container(
           margin: EdgeInsets.symmetric(vertical: 10.0),
-          child: decideMensaje(context , tipoMensaje),
+          child: decideMensaje(context , tipoMensaje , anchoPantalla),
       ),
 
       
@@ -147,21 +198,21 @@ class Mensajes extends StatelessWidget {
   } //Mensajes 
   
   
-  Widget decideMensaje(BuildContext context , String tipoMensaje){
+  Widget decideMensaje(BuildContext context , String tipoMensaje , double anchoPantalla){
     switch (tipoMensaje) {
       case "watsonReceta":
-        return mensajesWatson(context , tipoMensaje);
+        return mensajesWatson(context , tipoMensaje , anchoPantalla );
       break;
 
       case "watson":
-        return mensajesWatson(context , tipoMensaje);
+        return mensajesWatson(context , tipoMensaje , anchoPantalla );
       break;
 
-      case "Usuario":
-        return mensajesWatson(context , tipoMensaje);
+      case "usuario":
+        return mensajeUsuario(context , tipoMensaje , anchoPantalla );
       break;
 
-      default: return Divider(height: 2.0);
+      default: return mensajesWatson(context , tipoMensaje , anchoPantalla );
     }
     
   }
@@ -306,7 +357,7 @@ class WatsonMensaje extends StatelessWidget {
 
 */
 
-
+/*
 class UsuarioMensaje extends StatelessWidget {
   UsuarioMensaje({this.text, this.animationController});
   final String text;
@@ -348,9 +399,11 @@ class UsuarioMensaje extends StatelessWidget {
                child: CircleAvatar(child: Text("Tú") , radius: 25.0),
               )
             ],
-          )),
+          )
+      ),
     );
   }// build
 } //Class UsuarioMensaje
 
 
+*/
