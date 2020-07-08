@@ -15,6 +15,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.blue[900],
         title: Text(
           'Watson Chef 👨🏽‍🍳', 
@@ -119,9 +120,12 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
       return null;
     }
     //Para intercalar entre tipos de mensajes en pruebas
-    String tipo = "watsonReceta";
+    String tipo= "watsonReceta"; //  "watson"    "watsonReceta"  "usuario"
     String urlImagen = "https://t1.rg.ltmcdn.com/es/images/2/3/0/img_pollo_con_mole_9032_600.jpg";
     String urlyoutube = "https://www.youtube.com/watch?v=NXGWW8W3mss";
+
+    
+
 
     final animacionMensajes = new AnimationController(
         duration: const Duration(milliseconds: 500),

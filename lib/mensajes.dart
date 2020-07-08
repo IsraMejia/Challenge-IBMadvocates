@@ -38,13 +38,26 @@ class Mensajes extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container( //Avatar Watson
-                  margin: const EdgeInsets.only(right: 13.0),
-                  child: CircleAvatar( 
-                  backgroundImage:  NetworkImage("https://cdn.pixabay.com/photo/2019/07/25/20/13/robot-4363354_1280.png"),
-                  radius: 25.0,
-                  )
+                // Container( 
+                //   width: 25.0, height: 25.0,
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.all(Radius.circular(25.0))
+                //   ),
+                //   child: Image.asset('assets/watsonIcon.png', width: 25.0, height: 25.0 , fit: BoxFit.cover,) ,
+                // ),
+                // Text("hola"),
+                Container(
+                  margin: EdgeInsets.only(right : 10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(40.0),
+                    child: Image.asset( 'assets/watsonIcon.png',
+                        width: 52.0,
+                        height: 52.0,
+                        fit: BoxFit.fill,
+                    ),
+                  ),
                 ),
+
                 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -19,13 +19,13 @@ class _SplashScreenState extends State<SplashScreen> {
           
           Divider(color: Colors.blue[900]),
           Container(
-            height: 200,
-            width: 200,
+            height: 500,
+            width: 500,
             child: FlareActor(
-              'assets/food.flr',
+              'assets/WATSON2.flr',
               alignment: Alignment.center ,
               fit: BoxFit.contain,
-              animation: 'Untitled',
+              animation: 'chef',
             ),
           ),
           // Text('IBM Chatbot', style: TextStyle(fontSize: 25, color: Colors.blueGrey[50]) ),   
