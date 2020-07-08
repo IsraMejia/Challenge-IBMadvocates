@@ -118,36 +118,35 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     if(text.length == 0) {
       return null;
     }
+    //Para intercalar entre tipos de mensajes en pruebas
+    String tipo = "watsonReceta";
+    String urlImagen = "https://t1.rg.ltmcdn.com/es/images/2/3/0/img_pollo_con_mole_9032_600.jpg";
+    String urlyoutube = "https://www.youtube.com/watch?v=NXGWW8W3mss";
 
-    Mensajes mensaje = new Mensajes(
-      text: text,
-      tipoMensaje: "watsonReceta",
-      animationController: AnimationController(
+    final animacionMensajes = new AnimationController(
         duration: const Duration(milliseconds: 500),
         vsync: this,
-      ),
     );
 
-    //  mensaje2 = new Mensajes.receta{
-    //   text: text;
-    //   tipoMensaje: "watson";
-    //   pathImage = "https://t1.rg.ltmcdn.com/es/images/2/3/0/img_pollo_con_mole_9032_600.jpg";
-    //   urlVideo = "https://www.youtube.com/watch?v=NXGWW8W3mss";
-    //   animationController: AnimationController(
-    //     duration: const Duration(milliseconds: 500),
-    //     vsync: this,
-    //   ),
-    //  };
-
+    Mensajes mensaje = new Mensajes(
+      tipoMensaje: tipo,
+      text: text,
+      animationController: animacionMensajes,
+      urlImage : urlImagen,
+      urlVideo : urlyoutube,
+    );
 
     print(mensaje.tipoMensaje);
     setState(() {
-       _mensajes.insert(0, mensaje);
+     _mensajes.insert(0, mensaje);
     });
 
     _focusNode.requestFocus();
-    mensaje.animationController.forward(); 
-    }//_enviar()
+    mensaje.animationController.forward();  
+  
+ }//_enviar()
+
+
 
   @override
   void dispose() { //Para Optimizar la memoria
