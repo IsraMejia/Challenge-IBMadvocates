@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
  // true = watson,  false usuari
 
 class Mensajes extends StatelessWidget {
@@ -11,17 +12,8 @@ class Mensajes extends StatelessWidget {
     this.animationController,
     this.urlImage,
     this.urlVideo,
-  });/*
-  CREA VARIOS CONSTRUCTORES Y YA ES MAS FACIL *ya se hizo y no jalo xd
-  */ 
-
-  // Mensajes.receta({
-  //   this.tipoMensaje,
-  //   this.text,
-  //   this.urlImage,
-  //   this.urlVideo,
-  //   this.animationController,
-  // });
+  });
+  
   
   String tipoMensaje  ;
   String text;
@@ -38,14 +30,7 @@ class Mensajes extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Container( 
-                //   width: 25.0, height: 25.0,
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.all(Radius.circular(25.0))
-                //   ),
-                //   child: Image.asset('assets/watsonIcon.png', width: 25.0, height: 25.0 , fit: BoxFit.cover,) ,
-                // ),
-                // Text("hola"),
+                
                 Container(
                   margin: EdgeInsets.only(right : 10.0),
                   child: ClipRRect(
@@ -114,18 +99,16 @@ class Mensajes extends StatelessWidget {
     if (tipoMensaje == "watsonReceta"){
       return Stack(
         children: <Widget>[
-        Container(
-          width: anchoPantalla * 0.60,
-          child: ClipRRect(
+
+         ClipRRect(
             borderRadius: BorderRadius.circular(20.0),
              child: Image(
                width: anchoPantalla * 0.60,
                fit: BoxFit.cover,
                image:  NetworkImage(urlImage)
               ),
-            ),
-        ),
-                            
+         ),
+             
         Container(
           margin: EdgeInsets.only(top: anchoPantalla * 0.35 , left: anchoPantalla * 0.15),
           child: RaisedButton(
@@ -159,7 +142,7 @@ class Mensajes extends StatelessWidget {
     tipoMensaje = (tipoMensaje == "watsonReceta") ? "watson" : "watsonReceta";
 
     return  Row(
-           crossAxisAlignment: CrossAxisAlignment.end,
+           crossAxisAlignment: CrossAxisAlignment.center,
            children: [
              Column( 
                 crossAxisAlignment: CrossAxisAlignment.end,

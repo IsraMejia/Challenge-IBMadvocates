@@ -73,41 +73,45 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   }
 
   Widget _crearTeclado() {
-    return IconTheme(
-      data: IconThemeData(color: Colors.lightBlue[50] ),
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10.0),
-        child: Row(
-          children: [
-            Flexible(
-              child: TextField(//Teclado
-                
-                style: TextStyle(fontSize: 20.0, color: Colors.blue[50]),
-                cursorColor: Colors.blueGrey[200] ,
-                controller: _textController,
-                onSubmitted: _enviar,
-                decoration:
-                  InputDecoration.collapsed(
-                    hintText: 'Hablemos de cocina :)' ,
-                    hintStyle: TextStyle(fontSize: 19.0, color: Colors.blue[100] ) ,
-                    fillColor:Colors.white ),
-                focusNode: _focusNode,
-                
+    return Container(
+      decoration: BoxDecoration( color: Color.fromRGBO(43, 126, 214, 0.7) ),
+      child: IconTheme(
+        data: IconThemeData(color: Colors.lightBlue[50] ),
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 10.0),
+          // decoration: BoxDecoration( color: Colors.blue[700] ),
+          child: Row(
+            children: [
+              Flexible(
+                child: TextField(//Teclado
+                  
+                  style: TextStyle(fontSize: 20.0, color: Colors.blue[50]),
+                  cursorColor: Colors.blueGrey[200] ,
+                  controller: _textController,
+                  onSubmitted: _enviar,
+                  decoration:
+                    InputDecoration.collapsed(
+                      hintText: 'Hablemos de cocina :)' ,
+                      hintStyle: TextStyle(fontSize: 19.0, color: Colors.blue[100] ) ,
+                      fillColor:Colors.white ),
+                  focusNode: _focusNode,
+                  
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 4.0),
-              child: IconButton(
-                  icon: const Icon(Icons.send),
-                  onPressed: () {
-                    
-                       _enviar(_textController.text  );
-                    
-                  } 
-                  //Arreglar para que no mande mensajes vacios
-              ) ,
-            )
-          ],
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 4.0),
+                child: IconButton(
+                    icon: const Icon(Icons.send),
+                    onPressed: () {
+                      
+                         _enviar(_textController.text  );
+                      
+                    } 
+                    //Arreglar para que no mande mensajes vacios
+                ) ,
+              )
+            ],
+          ),
         ),
       ),
     );
