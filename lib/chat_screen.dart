@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:watson_chef/mensajes.dart';
+import 'package:watson_chef/models/model_mensajes.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -7,10 +8,26 @@ class ChatScreen extends StatefulWidget {
 }//ChatScreen
 
 class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
+
   final List<Mensajes> _mensajes = [];
   final _textController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   var _ocultaTeclado = new FocusNode();
+
+  WatsonCredencial credencial = WatsonCredencial(
+     username     : "Dialogo de introducción",
+     apikey       : "h4qjTYIE2uNnnTYIGfgDQkF7spj8bXr21TBjvlzW6f8t",
+     version      : "2020-07-10",
+     url          : "https://api.us-south.assistant.watson.cloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message",
+     assistantId  : "2c87464b-a78f-421e-9d48-bd934b62f439",
+  );
+
+  WatsonAssistantProvider watsonAssistantProvider;
+  WatsonAssistantResponse watsonAssistantResponse;
+  WatsonAssistantContext watsonAssistantContext = WatsonAssistantContext(context: {});
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,7 +141,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
       return null;
     }
     //Para intercalar entre tipos de mensajes en pruebas
-    String tipo= "watsonReceta"; //  "watson"    "watsonReceta"  "usuario"
+    String tipo= "usuario"; //  "watson"    "watsonReceta"  "usuario"
     String urlImagen = "https://t1.rg.ltmcdn.com/es/images/2/3/0/img_pollo_con_mole_9032_600.jpg";
     String urlyoutube = "https://www.youtube.com/watch?v=NXGWW8W3mss";
 
