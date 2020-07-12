@@ -26,7 +26,12 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   WatsonAssistantResponse watsonAssistantResponse;
   WatsonAssistantContext watsonAssistantContext = WatsonAssistantContext(context: {});
 
-
+  void initState() {
+    super.initState();
+    watsonAssistantProvider =
+        WatsonAssistantProvider( watsonCredencial : credencial);
+    _watsonContesta("Hola");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +125,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                 child: IconButton(
                     icon: const Icon(Icons.send),
                     onPressed: () {
-                      
+                        
                          _enviar(_textController.text  );
                       
                     } 
@@ -134,18 +139,18 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     );
   } //_crearTeclado
 
+    String tipo= "watson"; //  "watson"    "watsonReceta"  "usuario"
+    String urlImagen = "https://t1.rg.ltmcdn.com/es/images/2/3/0/img_pollo_con_mole_9032_600.jpg";
+    String urlyoutube = "https://www.youtube.com/watch?v=NXGWW8W3mss";
+  
   void _enviar(String text ) {
+    tipo= "usuario";
     _textController.clear();
     print(text);
     if(text.length == 0) {
       return null;
     }
     //Para intercalar entre tipos de mensajes en pruebas
-    String tipo= "usuario"; //  "watson"    "watsonReceta"  "usuario"
-    String urlImagen = "https://t1.rg.ltmcdn.com/es/images/2/3/0/img_pollo_con_mole_9032_600.jpg";
-    String urlyoutube = "https://www.youtube.com/watch?v=NXGWW8W3mss";
-
-    
 
 
     final animacionMensajes = new AnimationController(
@@ -168,9 +173,40 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 
     _focusNode.requestFocus();
     mensaje.animationController.forward();  
-  
+    tipo= "watson";
+    _watsonContesta(text);
  }//_enviar()
 
+
+  void _watsonContesta(String text)async{
+     tipo= "watson";
+     watsonAssistantResponse = await watsonAssistantProvider.sendMessage(
+     text , watsonAssistantContext);
+     
+
+    final animacionMensajes = new AnimationController(
+        duration: const Duration(milliseconds: 500),
+        vsync: this,
+    );
+
+    Mensajes mensaje = new Mensajes(
+      tipoMensaje: tipo,
+      text: watsonAssistantResponse.resultText,
+      animationController: animacionMensajes,
+      urlImage : urlImagen,
+      urlVideo : urlyoutube,
+    );
+
+    print(mensaje.tipoMensaje);
+    setState(() {
+     _mensajes.insert(0, mensaje);
+    });
+
+    _focusNode.requestFocus();
+    mensaje.animationController.forward(); 
+    watsonAssistantContext = watsonAssistantResponse.context;
+    tipo= "usuario";
+  }
 
 
   @override

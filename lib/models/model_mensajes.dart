@@ -1,50 +1,17 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;  
-
-Mensajes mensajesFromJson(String str) => Mensajes.fromJson(json.decode(str));
-
-String mensajesToJson(Mensajes data) => json.encode(data.toJson());
-
-class Mensajes {
-    Mensajes({
-        this.tipoMensaje,
-        this.text,
-        this.urlImage,
-        this.urlVideo,
-    });
-
-    String tipoMensaje;
-    String text;
-    String urlImage;
-    String urlVideo;
-
-    factory Mensajes.fromJson(Map<String, dynamic> json) => Mensajes(
-    //Que resa un factory permite retornar una nueva instancia del ProductoModel recibiendo un mapa
-    //Esto permite asignar los valores a cada uno de sus propiedades
-        tipoMensaje : json["tipoMensaje"],
-        text        : json["text"],
-        urlImage    : json["urlImage"],
-        urlVideo    : json["urlVideo"],
-    );
-
-    Map<String, dynamic> toJson() => {
-    //Mapa lo pasa a JSON, toma el mapa y lo pasa a JSON
-        "tipoMensaje": tipoMensaje,
-        "text"       : text,
-        "urlImage"   : urlImage,
-        "urlVideo"   : urlVideo,
-    };
-}//Mensajes Class
+import 'package:watson_chef/chat_screen.dart';
 
 
 /*
   Skill details
 Skill name:Dialogo de introducción
-Skill ID:2c87464b-a78f-421e-9d48-bd934b62f439
-Legacy v1 workspace URL:https://api.us-south.assistant.watson.cloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message
+Skill ID:2c8746asdasdasdasdasdasdas
+Legacy v1 workspace URL:https://api.asdasdasdasdasdasdasdasdasdasdasloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message
 Service credentials
 Service credentials name:Auto-generated service credentials
-API key:h4qjTYIE2uNnnTYIGfgDQkF7spj8bXr21TBjvlzW6f8t
+API key:hsdasdasdasdasdasd
  */
 
 class WatsonAssistantResponse {
@@ -52,8 +19,6 @@ class WatsonAssistantResponse {
   WatsonAssistantContext context;
   WatsonAssistantResponse({this.resultText, this.context});
 }
-
-
 
 
 class WatsonAssistantContext {
@@ -84,12 +49,12 @@ class WatsonCredencial {
     }); //WatsonCredencial(
 
     String username = "Dialogo de introducción";
-    String apikey = "h4qjTYIE2uNnnTYIGfgDQkF7spj8bXr21TBjvlzW6f8t";
-    String version = "2020-07-10";
+    String apikey = "h4qjTasdasdasdasdsadasdasdasf8t";
+    String version = "202asdasdasasd0";
     String url = "https://api.us-south.assistant.watson.cloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message";
-    String assistantId = "2c87464b-a78f-421e-9d48-bd934b62f439";
+    String assistantId = "2c8asdasdasdasdbd9asdasdasd";
     // String urlWatsonAssistant = "https://api.us-south.assistant.watson.cloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message?version=2020-07-10";
-    String authn ="Basic YXBpa2V5Omg0cWpUWUlFMnVObm5UWUlHZmdEUWtGN3NwajhiWHIyMVRCanZselc2Zjh0";
+    String authn ="Basic YXBpa2V5OasdasdasdasdjhiWHIyMasdasdasdasda";
 
    
     factory WatsonCredencial.fromJson(Map<String, dynamic> json) => WatsonCredencial(
@@ -114,6 +79,10 @@ class WatsonCredencial {
 class WatsonAssistantProvider {
   WatsonCredencial watsonCredencial;
 
+   WatsonAssistantProvider({
+    @required this.watsonCredencial,
+  });
+
   Future<WatsonAssistantResponse> sendMessage(
       String textInput, WatsonAssistantContext context) async {
     try {
@@ -130,7 +99,7 @@ class WatsonAssistantProvider {
       // It also maintains the state of the conversation.
 
       var nuevaSesion = await http.post(
-          '${watsonCredencial.url}/assistants/${watsonCredencial.assistantId}/sessions?version=${watsonCredencial.version}',
+          'https://api.us-south.assistant.watson.cloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message?version=2020-07-10',
           headers: {'Content-Type': 'application/json', 'Authorization': autenAssistant},
           body: json.encode(_body));
       try {
@@ -152,7 +121,7 @@ class WatsonAssistantProvider {
       /* print('the session $session_id is created');*/
 
       var receivedText = await http.post(
-        '${watsonCredencial.url}/assistants/${watsonCredencial.assistantId}/sessions/$session_id/message?version=${watsonCredencial.version}',
+        'https://api.us-south.assistant.watson.cloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message?version=2020-07-10',
         headers: {'Content-Type': 'application/json', 'Authorization': autenAssistant},
         body: json.encode(_body), //Recive el body del json
         //body: data
@@ -162,7 +131,7 @@ class WatsonAssistantProvider {
       print(receivedText.body);*/
 
       var parsedJson = json.decode(receivedText.body);
-      var _WatsonResponse = parsedJson['output']['generic'][0]['text']; //AQUI ESTA LA RESPUESTA
+      var _watsonResponse = parsedJson['output']['generic'][0]['text']; //AQUI ESTA LA RESPUESTA
 
       Map<String, dynamic> _result = json.decode(receivedText.body);
 
@@ -171,7 +140,7 @@ class WatsonAssistantProvider {
           WatsonAssistantContext(context: _result['context']);
 
       WatsonAssistantResponse watsonAssistantResult = WatsonAssistantResponse(
-          context: _context, resultText: _WatsonResponse);
+          context: _context, resultText: _watsonResponse);
 
       return watsonAssistantResult;
 
@@ -182,7 +151,8 @@ class WatsonAssistantProvider {
 
     catch (error) {
       //print(error);
-      return error;
+      return //ChatScreen._watsonContesta("Que puedes hacer?");
+      error;
     }//catch
 
   }//Future<WatsonAssistantResponse> sendMessage(....async{...
