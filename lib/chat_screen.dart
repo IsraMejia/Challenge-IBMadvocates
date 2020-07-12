@@ -30,7 +30,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     super.initState();
     watsonAssistantProvider =
         WatsonAssistantProvider( watsonCredencial : credencial);
-    _watsonContesta("Hola");
+    _watsonContesta("");
   }
 
   @override
@@ -140,6 +140,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   } //_crearTeclado
 
     String tipo= "watson"; //  "watson"    "watsonReceta"  "usuario"
+    //tipo.contains(.); //para sabeque es watsonReceta "watsonReceta" ;
     String urlImagen = "https://t1.rg.ltmcdn.com/es/images/2/3/0/img_pollo_con_mole_9032_600.jpg";
     String urlyoutube = "https://www.youtube.com/watch?v=NXGWW8W3mss";
   
@@ -183,6 +184,12 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
      watsonAssistantResponse = await watsonAssistantProvider.sendMessage(
      text , watsonAssistantContext);
      
+     if( watsonAssistantResponse.resultText.contains("*")){
+       tipo = "watsonReceta";
+     }
+
+      //Aqui agregar lo del URL de youtube para que el constructor de mensaje lo reciba 
+      //igual intentare que reciba la miniatura para la url de la imagen ;D
 
     final animacionMensajes = new AnimationController(
         duration: const Duration(milliseconds: 500),

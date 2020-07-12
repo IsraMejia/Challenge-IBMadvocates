@@ -49,12 +49,12 @@ class WatsonCredencial {
     }); //WatsonCredencial(
 
     String username = "AppCocinaSkill";
-    String apikey = "h4qjTYIE2uNnnTYIGfgDQkF7spj8bXr21TBjvlzW6f8t";
-    String version = "2020-07-10";
-    String url = "https://api.us-south.assistant.watson.cloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message";
-    String assistantId = "2c87464b-a78f-421e-9d48-bd934b62f439";
+    String apikey = "7WSwbzNobAyzbzrToxB1rbeTAw9qfjVDs-ZfvFP8zkoA";
+    String version = "2020-07-08";
+    String url = "https://api.us-south.assistant.watson.cloud.ibm.com/instances/0ab54d4c-e42b-45ff-bad9-017b8c2d5636/v1/workspaces/d2707535-26dd-4793-94a0-f7685b1fc88d/message?version=2020-07-08";
+    String assistantId = "d2707535-26dd-4793-94a0-f7685b1fc88d";
     // String urlWatsonAssistant = "https://api.us-south.assistant.watson.cloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message?version=2020-07-10";
-    String authn ="Basic YXBpa2V5Omg0cWpUWUlFMnVObm5UWUlHZmdEUWtGN3NwajhiWHIyMVRCanZselc2Zjh0";
+    String authn ="Basic QXBpa2V5OjdXU3diek5vYkF5emJ6clRveEIxcmJlVEF3OXFmalZEcy1aZnZGUDh6a29B";
 
    
     factory WatsonCredencial.fromJson(Map<String, dynamic> json) => WatsonCredencial(
@@ -121,7 +121,7 @@ class WatsonAssistantProvider {
       /* print('the session $session_id is created');*/
 
       var receivedText = await http.post(
-        'https://api.us-south.assistant.watson.cloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message?version=2020-07-10',
+        'https://api.us-south.assistant.watson.cloud.ibm.com/instances/0ab54d4c-e42b-45ff-bad9-017b8c2d5636/v1/workspaces/d2707535-26dd-4793-94a0-f7685b1fc88d/message?version=2020-07-08',
         headers: {'Content-Type': 'application/json', 'Authorization': autenAssistant},
         body: json.encode(_body), //Recive el body del json
         //body: data
