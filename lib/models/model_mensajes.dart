@@ -7,11 +7,11 @@ import 'package:watson_chef/chat_screen.dart';
 /*
   Skill details
 Skill name:Dialogo de introducción
-Skill ID:2c8746asdasdasdasdasdasdas
-Legacy v1 workspace URL:https://api.asdasdasdasdasdasdasdasdasdasdasloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message
+Skill ID:2c87464b-a78f-421e-9d48-bd934b62f439
+Legacy v1 workspace URL:https://api.us-south.assistant.watson.cloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message
 Service credentials
 Service credentials name:Auto-generated service credentials
-API key:hsdasdasdasdasdasd
+API key:h4qjTYIE2uNnnTYIGfgDQkF7spj8bXr21TBjvlzW6f8t
  */
 
 class WatsonAssistantResponse {
@@ -48,13 +48,13 @@ class WatsonCredencial {
         this.assistantId,
     }); //WatsonCredencial(
 
-    String username = "Dialogo de introducción";
-    String apikey = "h4qjTasdasdasdasdsadasdasdasf8t";
-    String version = "202asdasdasasd0";
+    String username = "AppCocinaSkill";
+    String apikey = "h4qjTYIE2uNnnTYIGfgDQkF7spj8bXr21TBjvlzW6f8t";
+    String version = "2020-07-10";
     String url = "https://api.us-south.assistant.watson.cloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message";
-    String assistantId = "2c8asdasdasdasdbd9asdasdasd";
+    String assistantId = "2c87464b-a78f-421e-9d48-bd934b62f439";
     // String urlWatsonAssistant = "https://api.us-south.assistant.watson.cloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message?version=2020-07-10";
-    String authn ="Basic YXBpa2V5OasdasdasdasdjhiWHIyMasdasdasdasda";
+    String authn ="Basic YXBpa2V5Omg0cWpUWUlFMnVObm5UWUlHZmdEUWtGN3NwajhiWHIyMVRCanZselc2Zjh0";
 
    
     factory WatsonCredencial.fromJson(Map<String, dynamic> json) => WatsonCredencial(
@@ -99,7 +99,7 @@ class WatsonAssistantProvider {
       // It also maintains the state of the conversation.
 
       var nuevaSesion = await http.post(
-          'https://api.us-south.assistant.watson.cloud.ibm.com/instances/4e3162d6-993e-47c0-89ba-63f55655ad34/v1/workspaces/2c87464b-a78f-421e-9d48-bd934b62f439/message?version=2020-07-10',
+          'https://api.us-south.assistant.watson.cloud.ibm.com/instances/0ab54d4c-e42b-45ff-bad9-017b8c2d5636/v1/workspaces/d2707535-26dd-4793-94a0-f7685b1fc88d/message?version=2020-07-08',
           headers: {'Content-Type': 'application/json', 'Authorization': autenAssistant},
           body: json.encode(_body));
       try {
@@ -151,9 +151,12 @@ class WatsonAssistantProvider {
 
     catch (error) {
       //print(error);
-      return //ChatScreen._watsonContesta("Que puedes hacer?");
+      return //_watsonContesta("Que puedes hacer?");
       error;
     }//catch
 
   }//Future<WatsonAssistantResponse> sendMessage(....async{...
 }//class WatsonAssistantProvider
+
+
+
