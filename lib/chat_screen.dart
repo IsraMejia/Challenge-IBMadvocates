@@ -195,7 +195,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
      if( watsonAssistantResponse.resultText.contains("*")){
       tipo = "watsonReceta";
       watsonAssistantResponse.resultText = watsonAssistantResponse.resultText.replaceAll("*", "");
-      String nombrePlatillo = watsonAssistantResponse.resultText.substring(0,27);
+      String nombrePlatillo = watsonAssistantResponse.resultText.replaceAll("¿Qué te ha parecido la recomendación?", "") + "cocina";
       //  callyoutube(nombrePlatillo);
       print(nombrePlatillo);
       ytResult = await ytApi.search(nombrePlatillo);
