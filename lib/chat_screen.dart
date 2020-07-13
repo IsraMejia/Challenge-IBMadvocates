@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:watson_chef/mensajes.dart';
 import 'package:watson_chef/models/model_mensajes.dart';
+import 'package:youtube_api/youtube_api.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -140,9 +141,6 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   } //_crearTeclado
 
     String tipo= "watson"; //  "watson"    "watsonReceta"  "usuario"
-    //tipo.contains(.); //para sabeque es watsonReceta "watsonReceta" ;
-    String urlImagen = "https://t1.rg.ltmcdn.com/es/images/2/3/0/img_pollo_con_mole_9032_600.jpg";
-    String urlyoutube = "https://www.youtube.com/watch?v=NXGWW8W3mss";
   
   void _enviar(String text ) {
     tipo= "usuario";
@@ -178,15 +176,34 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     _watsonContesta(text);
  }//_enviar()
 
+  
+    //tipo.contains(.); //para sabeque es watsonReceta "watsonReceta" ;
+  String urlImagen = "https://t1.rg.ltmcdn.com/es/images/2/3/0/img_pollo_con_mole_9032_600.jpg";
+  String urlyoutube = "https://www.youtube.com/watch?v=NXGWW8W3mss";
+  //Por si no retorna algo la api de youtube 
+
+    // String keyYT = "AIzaSyCyC0salaLGgaNV3IXe3AG0kyBXgVYUrwM"; 
+  YoutubeAPI ytApi = new YoutubeAPI("AIzaSyCyC0salaLGgaNV3IXe3AG0kyBXgVYUrwM");
+  List<YT_API> ytResult = [];
 
   void _watsonContesta(String text)async{
      tipo= "watson";
      watsonAssistantResponse = await watsonAssistantProvider.sendMessage(
      text , watsonAssistantContext);
      
+     
      if( watsonAssistantResponse.resultText.contains("*")){
-       tipo = "watsonReceta";
+      tipo = "watsonReceta";
+      watsonAssistantResponse.resultText = watsonAssistantResponse.resultText.replaceAll("*", "");
+      String nombrePlatillo = watsonAssistantResponse.resultText.substring(0,27);
+      //  callyoutube(nombrePlatillo);
+      print(nombrePlatillo);
+      ytResult = await ytApi.search(nombrePlatillo);
+      urlyoutube= ytResult[0].url.replaceAll(" ", "");
+      urlImagen = ytResult[0].thumbnail['default']['url'];
      }
+
+     print(urlyoutube);
 
       //Aqui agregar lo del URL de youtube para que el constructor de mensaje lo reciba 
       //igual intentare que reciba la miniatura para la url de la imagen ;D
